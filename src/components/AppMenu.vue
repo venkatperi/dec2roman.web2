@@ -23,10 +23,13 @@
 
 </script>
 
+
+<style lang="scss">
+  @import '../styles/main';
+</style>
+
+
 <style lang="scss" scoped>
-  .masthead {
-    margin-bottom: 0rem;
-  }
 
   .masthead-brand {
     margin-bottom: 0;
@@ -35,26 +38,23 @@
     color: #222;
   }
 
-  .nav-masthead .nav-link {
-    padding: .25rem 0;
-    font-weight: 700;
-    color: rgba(255, 255, 255, .5);
-    background-color: transparent;
-    border-bottom: .25rem solid transparent;
-  }
-
-  .nav-masthead .nav-link:hover,
-  .nav-masthead .nav-link:focus {
-    //border-bottom-color: rgba(255, 255, 255, .25);
-  }
-
-  .nav-masthead .nav-link + .nav-link {
-    margin-left: 1rem;
-  }
-
-  .nav-masthead .active {
-    color: #fff;
-    border-bottom-color: #fff;
+  .nav-masthead {
+    .nav-link {
+      padding: .25rem 0;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+      background-color: transparent;
+      border-bottom: .25rem solid transparent;
+      &:hover, &:focus {
+      }
+      + .nav-link {
+        margin-left: 1rem;
+      }
+    }
+    .active {
+      color: #fff;
+      border-bottom-color: #fff;
+    }
   }
 
   @media (min-width: 30rem) {

@@ -1,8 +1,8 @@
+import App from 'components/App';
+import AppFooter from 'components/AppFooter';
+import AppMenu from 'components/AppMenu';
 import Vue from 'vue';
 import VueRouter from 'vue-router'
-import App from './App.vue';
-import AppMenu from 'components/AppMenu';
-import Dec2roman from 'components/Dec2roman';
 
 let router = new VueRouter( {
   routes: [
@@ -10,7 +10,8 @@ let router = new VueRouter( {
       path: '/',
       components: {
         header: AppMenu,
-        main: Dec2roman,
+        main: App,
+        footer: AppFooter,
       },
     },
   ],
@@ -21,5 +22,4 @@ Vue.use( VueRouter )
 new Vue( {
   router,
   el: '#app',
-  // render: h => h( App ),
 } )

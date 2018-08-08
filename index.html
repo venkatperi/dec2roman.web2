@@ -7,11 +7,16 @@
 </head>
 
 <body>
-  <div id="app">
-    <router-view name="header"></router-view>
-    <router-view name="main"></router-view>
-  </div>
-  <script src="/dist/build.js"></script>
+<div id="app" class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+  <router-view name="header"></router-view>
+  <main role="main" class="inner cover">
+    <div id="content">
+      <router-view name="main"></router-view>
+    </div>
+  </main>
+  <router-view name="footer"></router-view>
+</div>
+<script src="/dist/build.js"></script>
 </body>
 
 </html>

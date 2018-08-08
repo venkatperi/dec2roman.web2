@@ -1,10 +1,9 @@
 <template>
   <div class="form-group">
     <label class="label">{{caption}}</label>
-    <textarea :id="id"
+    <textarea v-model="entry"
               :class="['form-control','input', error? 'error-border':'']"
-              v-model="entry"
-              @input="update">{{ value }}</textarea>
+              @input="update"></textarea>
     <small class="message" v-html="errorMessage"></small>
   </div>
 </template>
@@ -16,8 +15,8 @@
     name: 'converter',
 
     props: {
-      id: String,
       value: [Number, String],
+      options: Object,
       caption: {
         type: String,
         required: true,
@@ -43,6 +42,15 @@
       value() {
         this.entry = this.value
       },
+      error() {
+        console.log( this.error )
+      },
+      options: {
+        handler() {
+          this.update( { target: { value: this.entry } } )
+        },
+        deep: true,
+      },
     },
 
     computed: {
@@ -53,27 +61,19 @@
 
     methods: {
       convert: function () {
-        let val = ''
         this.error = undefined
-        if ( this.entry.length > 0 ) {
-          try {
-            val = this.converter( this.entry )
-          } catch ( e ) {
-            console.log( e )
-            this.error = e
-          }
+        try {
+          return this.converter( this.entry, this.options )
+        } catch ( e ) {
+          this.error = e
         }
-        return val
       },
 
       update: _.debounce( function ( e ) {
-        let value = e.target.value
-        if ( value.length > 0 ) {
-          try {
-            this.entry = this.preprocessor( value )
-          } catch ( e ) {
-            console.log( e )
-          }
+        try {
+          this.entry = this.preprocessor( e.target.value )
+        } catch ( e ) {
+          console.log( e )
         }
 
         this.$emit( 'result', this.convert() );
@@ -102,7 +102,7 @@
     background-color: #eee;
   }
 
-  #decimal {
+  .decimal textarea {
     font-family: 'Share Tech Mono', monospace;
     height: 1.5em;
     color: #333;
