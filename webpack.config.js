@@ -1,11 +1,13 @@
-var path = require( 'path' );
-var webpack = require( 'webpack' );
+const path = require( 'path' );
+const webpack = require( 'webpack' );
+const UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' )
+
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve( __dirname, './dist' ),
-    publicPath: '/dist/',
+    publicPath: '/',
     filename: 'build.js',
   },
   module: {
@@ -52,8 +54,8 @@ module.exports = {
   resolve: {
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      'components': path.join(__dirname, 'src/components' ),
-      'images': path.join(__dirname, 'src/images' )
+      'components': path.join( __dirname, 'src/components' ),
+      'images': path.join( __dirname, 'src/images' ),
     },
     extensions: ['*', '.js', '.vue', '.json'],
   },
@@ -75,12 +77,17 @@ if ( process.env.NODE_ENV === 'production' ) {
         NODE_ENV: '"production"',
       },
     } ),
-    new webpack.optimize.UglifyJsPlugin( {
-      sourceMap: true,
-      compress: {
-        warnings: false,
+    new UglifyJsPlugin( {
+      uglifyOptions: {
+        ecma: 8,
       },
     } ),
+    // new webpack.optimize.UglifyJsPlugin( {
+    //   sourceMap: true,
+    //   compress: {
+    //     warnings: false,
+    //   },
+    // } ),
     new webpack.LoaderOptionsPlugin( {
       minimize: true,
     } ),

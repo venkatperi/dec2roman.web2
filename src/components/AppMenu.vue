@@ -3,7 +3,7 @@
     <div class="inner">
       <h3 class="masthead-brand">Romanus Numerum</h3>
       <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link" href="https://github.com/venkatperi/dec2roman">
+        <a class="nav-link" href="https://github.com/venkatperi/dec2roman" target="_blank">
           <GithubLogo/>
         </a>
       </nav>
@@ -35,7 +35,7 @@
     margin-bottom: 0;
     font-family: 'Judson', serif;
     text-transform: uppercase;
-    color: #222;
+    color: #333;
   }
 
   .nav-masthead {
@@ -55,6 +55,10 @@
       color: #fff;
       border-bottom-color: #fff;
     }
+  }
+
+  .masthead-brand, .nav-masthead {
+    text-align: center;
   }
 
   @media (min-width: 30rem) {

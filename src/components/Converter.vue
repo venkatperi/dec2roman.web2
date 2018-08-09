@@ -1,10 +1,10 @@
 <template>
-  <div class="form-group">
+  <div class="form-group converter">
     <label class="label">{{caption}}</label>
+    <span class="message" v-html="errorMessage"></span>
     <textarea v-model="entry"
               :class="['form-control','input', error? 'error-border':'']"
               @input="update"></textarea>
-    <small class="message" v-html="errorMessage"></small>
   </div>
 </template>
 
@@ -86,11 +86,23 @@
 
 <style lang="scss" scoped>
 
+  label, .message {
+    margin-bottom: 0;
+    color: #666;
+    font-size: 0.9rem;
+    font-family: 'Share Tech Mono',sans-serif;
+  }
+
+  .message {
+    margin-left: 10px;
+    color: red;
+  }
+
   textarea.input {
-    height: 200px;
+    height: 1.5em;
     color: #555;
     width: 100%;
-    padding: 10px 20px;
+    padding: 0 20px;
     max-height: 300px;
 
     font-family: 'News Cycle', sans-serif;
@@ -104,7 +116,6 @@
 
   .decimal textarea {
     font-family: 'Share Tech Mono', monospace;
-    height: 1.5em;
     color: #333;
     &::placeholder {
       color: #808080;
@@ -113,5 +124,9 @@
 
   .error-border {
     background: rgba(200, 100, 100, 0.25) !important;
+  }
+
+  .converter {
+    margin-bottom: 20px;
   }
 </style>

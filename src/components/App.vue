@@ -100,7 +100,7 @@
   .options {
     font-family: 'Share Tech Mono', sans-serif;
     font-size: 0.75rem;
-    color: #888;
+    color: #777;
     text-transform: uppercase;
   }
 
