@@ -2,19 +2,40 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Romanus Numereum</title>
 </head>
 
 <body>
-<div id="app" class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-  <router-view name="header"></router-view>
-  <main role="main" class="inner cover">
-    <div id="content">
-      <router-view name="main"></router-view>
+<div id="app" class="container-fluid">
+  <div class="row">
+    <router-view name="core"></router-view>
+    <div class="col-sm-1 col-md-2 col-lg-3"></div>
+    <div class="col col-sm10 col-md-8 col-lg-6">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <router-view name="header"></router-view>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div id="content">
+              <router-view name="main"></router-view>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <router-view name="footer"></router-view>
+          </div>
+        </div>
+      </div>
     </div>
-  </main>
-  <router-view name="footer"></router-view>
+    <div class="col-sm-1 col-md-2 col-lg-3"></div>
+  </div>
 </div>
 <script src="build.js"></script>
 </body>

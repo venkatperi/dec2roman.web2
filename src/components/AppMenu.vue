@@ -1,14 +1,16 @@
 <template>
-  <header class="masthead mb-auto">
-    <div class="inner">
-      <h3 class="masthead-brand">Romanus Numerum</h3>
-      <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link" href="https://github.com/venkatperi/dec2roman" target="_blank">
+  <div class="container-fluid menu p-0 mt-2 mb-4">
+    <div class="row">
+      <div class="col-auto float-left">
+        <h3 class="brand">Romanus Numerum</h3>
+      </div>
+      <div class="col float-right text-right">
+        <a href="https://github.com/venkatperi/dec2roman" target="_blank">
           <GithubLogo/>
         </a>
-      </nav>
+      </div>
     </div>
-  </header>
+  </div>
 </template>
 
 <script>
@@ -25,15 +27,16 @@
 
 
 <style lang="scss">
-  @import '../styles/main';
+  /*@import '../styles/main';*/
 </style>
 
 
 <style lang="scss" scoped>
 
-  .masthead-brand {
+  .brand {
     margin-bottom: 0;
     font-family: 'Judson', serif;
+    font-size: 1.4em;
     text-transform: uppercase;
     color: #333;
   }

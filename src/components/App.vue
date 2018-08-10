@@ -1,49 +1,66 @@
 <template>
-  <div>
-
-    <converter caption="ROMANUS"
-               :preprocessor="romanPreprocessor"
-               :converter="convertRoman"
-               :value="roman"
-               :options="options.r2d"
-               @result="decimal = $event"/>
-    <converter caption="DECIMALES"
-               class="decimal"
-               :converter="convertDecimal"
-               :value="decimal"
-               :options="options.d2r"
-               @result="roman = $event"/>
+  <div class="container-fluid p-0 mt-4">
+    <div class="row">
+      <div class="col">
+        <converter caption="ROMANUS"
+                   :preprocessor="romanPreprocessor"
+                   :converter="convertRoman"
+                   :value="roman"
+                   :options="options.r2d"
+                   hint="HINT: Use single quotes (') for vinculum over-bars."
+                   @result="decimal = $event"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <converter caption="DECIMALES"
+                   class="decimal"
+                   :converter="convertDecimal"
+                   :value="decimal"
+                   :options="options.d2r"
+                   @result="roman = $event"/>
+      </div>
+    </div>
     <div class="options">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="strict"
-               v-model="options.r2d.strict">
-        <label class="form-check-label" for="strict">
-          <a href="https://www.math.nmsu.edu/~pmorandi/math111f01/RomanNumerals.html" target="_blank">Strict</a> mode
-          for roman numbers
-        </label>
+      <div class="row">
+        <div class="col">
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" value="" id="strict"
+                   v-model="options.r2d.strict">
+            <label class="form-check-label" for="strict">
+              <a href="https://www.math.nmsu.edu/~pmorandi/math111f01/RomanNumerals.html" target="_blank">Strict</a>
+              mode
+              for roman numbers
+            </label>
+          </div>
+        </div>
       </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="modeRadio"
-               id="mode-noext" value="no_ext"
-               v-model="options.d2r.mode">
-        <label class="form-check-label" for="mode-noext">
-          No over-lines or extensions, please.
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="modeRadio" id="mode-ibar" value="ibar"
-               v-model="options.d2r.mode"
-               checked>
-        <label class="form-check-label" for="mode-ibar">
-          Use <a href="https://en.wikipedia.org/wiki/Roman_numerals#Vinculum" target="_blank">vinculum</a> notation
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="modeRadio" id="mode-no-ibar" value="no_ibar"
-               v-model="options.d2r.mode">
-        <label class="form-check-label" for="mode-no-ibar">
-          Use vinculum, but use M instead of I̅ (I with over-line).
-        </label>
+      <div class="row">
+        <div class="col">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="modeRadio"
+                   id="mode-noext" value="no_ext"
+                   v-model="options.d2r.mode">
+            <label class="form-check-label" for="mode-noext">
+              No over-lines or extensions, please.
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="modeRadio" id="mode-ibar" value="ibar"
+                   v-model="options.d2r.mode"
+                   checked>
+            <label class="form-check-label" for="mode-ibar">
+              Use <a href="https://en.wikipedia.org/wiki/Roman_numerals#Vinculum" target="_blank">vinculum</a> notation
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="modeRadio" id="mode-no-ibar" value="no_ibar"
+                   v-model="options.d2r.mode">
+            <label class="form-check-label" for="mode-no-ibar">
+              Use vinculum, but use M instead of I̅ (I with over-line).
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -66,7 +83,7 @@
           },
           d2r: {
             mode: 'ibar',
-          }
+          },
         },
         decimal: '',
         roman: '',
@@ -97,6 +114,7 @@
 </script>
 
 <style lang="scss" scoped>
+
   .options {
     font-family: 'Share Tech Mono', sans-serif;
     font-size: 0.75rem;

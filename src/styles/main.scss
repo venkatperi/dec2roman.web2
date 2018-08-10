@@ -1,5 +1,6 @@
-@import 'variables/index';
-@import 'base/index';
+//@import 'variables/index';
+//@import 'base/index';
+@import '../../node_modules/bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css?family=Judson|Share+Tech+Mono|News+Cycle');
 @import '../../node_modules/toastr/toastr';
 
@@ -12,13 +13,12 @@ body {
 }
 
 body {
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: flex;
-  -ms-flex-pack: center;
-  -webkit-box-pack: center;
-  justify-content: center;
   color: #333;
+  width: 100%;
+}
+
+.container-fluid {
+  //padding: 0;
 }
 
 /*
@@ -55,7 +55,7 @@ body {
 }
 
 #content {
-  margin-top: 2rem;
+  //margin-top: 2rem;
 }
 
 #clippy {
