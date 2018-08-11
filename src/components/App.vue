@@ -1,5 +1,12 @@
 <template>
-  <div class="container-fluid p-0 mt-4">
+  <div class="container-fluid p-0 ">
+    <div class="row">
+      <div class="col text-right">
+        <a :href="'/roman/#/d2r/'+decimal" title="Right click to copy link">
+          <LinkLogo/>
+        </a>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <converter caption="ROMANUS"
@@ -69,29 +76,61 @@
 <script>
   import Converter from 'components/Converter';
   import {dec2Roman, roman2Dec} from 'dec2roman'
+  import LinkLogo from 'images/Link.svg';
+  import _ from 'lodash'
 
   export default {
     name: 'app',
 
-    components: { Converter },
+    components: {
+      LinkLogo,
+      Converter,
+    },
 
     data: function () {
       return {
         options: {
-          r2d: {
-            strict: true,
-          },
-          d2r: {
-            mode: 'ibar',
-          },
+          r2d: { strict: true },
+          d2r: { mode: 'ibar' },
         },
         decimal: '',
         roman: '',
+        routeArgs: {},
       }
     },
 
+    created() {
+      this.updateRouteArgs()
+    },
+
+    watch: {
+      '$route'() {
+        this.updateRouteArgs()
+      },
+
+      routeArgs() {
+        let args = this.routeArgs
+        console.log( args )
+        switch ( args.op ) {
+          case 'd2r':
+            this.decimal = args.input
+            break
+          case 'r2d':
+            this.roman = args.input
+            break
+        }
+      },
+    },
+
     methods: {
+      updateRouteArgs() {
+        this.routeArgs = this.$route.params.args ?
+          _.zipObject( ['op', 'input'], this.$route.params.args.split( '/' ) )
+          : {}
+      },
+
       romanPreprocessor: function ( x ) {
+        if ( !x || x.length === 0 ) return ''
         return x.toUpperCase().replace( '\'', '̅' )
       },
 

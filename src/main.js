@@ -5,17 +5,17 @@ import AppMenu from 'components/AppMenu'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+const appComponents = {
+  core: AppCore,
+  header: AppMenu,
+  main: App,
+  footer: AppFooter,
+}
+
 let router = new VueRouter( {
   routes: [
-    {
-      path: '/',
-      components: {
-        core: AppCore,
-        header: AppMenu,
-        main: App,
-        footer: AppFooter,
-      },
-    },
+    // { path: '/', components: appComponents },
+    { path: '/:args*', components: appComponents },
   ],
 } )
 

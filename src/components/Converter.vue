@@ -11,9 +11,8 @@
     <div class="row">
       <div class="col">
     <textarea v-model="entry"
-              :title="caption"
-              :class="['form-control','input', error? 'error-border':'']"
-              @input="update"></textarea>
+              :class="['form-control','input', error? 'error-border':'']">
+    </textarea>
       </div>
     </div>
     <div class="row">
@@ -25,8 +24,8 @@
 </template>
 
 <script>
-  import _ from 'lodash';
 
+  // noinspection JSUnusedGlobalSymbols
   export default {
     name: 'converter',
 
@@ -48,9 +47,10 @@
       },
     },
 
-    data: function () {
+    data() {
       return {
         entry: '',
+        result: '',
         error: undefined,
       }
     },
@@ -59,43 +59,44 @@
       value() {
         this.entry = this.value
       },
+
       error() {
         console.log( this.error )
       },
+
       options: {
         handler() {
-          this.update( { target: { value: this.entry } } )
+          this.update( this.entry )
         },
         deep: true,
       },
-    },
 
-    computed: {
-      errorMessage: function () {
-        return this.error ? this.error.message : '&nbsp;'
+      entry( input ) {
+        this.update( input )
       },
+
+      result( r ) {
+        this.$emit( 'result', r );
+      },
+
     },
 
     methods: {
-      convert: function () {
+      update( input ) {
         this.error = undefined
         try {
-          return this.converter( this.entry, this.options )
+          this.entry = this.preprocessor( input )
+          this.result = this.converter( this.entry, this.options )
         } catch ( e ) {
           this.error = e
         }
       },
+    },
 
-      update: _.debounce( function ( e ) {
-        try {
-          this.entry = this.preprocessor( e.target.value )
-        } catch ( e ) {
-          console.log( e )
-        }
-
-        this.$emit( 'result', this.convert() );
-
-      }, 100 ),
+    computed: {
+      errorMessage() {
+        return this.error ? this.error.message : '&nbsp;'
+      },
     },
   }
 </script>
