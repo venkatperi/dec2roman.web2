@@ -12,7 +12,8 @@
         <converter caption="ROMANUS"
                    :preprocessor="romanPreprocessor"
                    :converter="convertRoman"
-                   :value="roman"
+                   v-model="roman"
+                   :process="processRoman"
                    :options="options.r2d"
                    hint="HINT: Use single quotes (') for vinculum over-bars."
                    @result="decimal = $event"/>
@@ -23,7 +24,8 @@
         <converter caption="DECIMALES"
                    class="decimal"
                    :converter="convertDecimal"
-                   :value="decimal"
+                   v-model="decimal"
+                   :process="processDecimal"
                    :options="options.d2r"
                    @result="roman = $event"/>
       </div>
@@ -94,7 +96,9 @@
           d2r: { mode: 'ibar' },
         },
         decimal: '',
+        processDecimal: '',
         roman: '',
+        processRoman: '',
         routeArgs: {},
       }
     },
@@ -113,10 +117,10 @@
         console.log( args )
         switch ( args.op ) {
           case 'd2r':
-            this.decimal = args.input
+            this.decimal = this.processDecimal = args.input
             break
           case 'r2d':
-            this.roman = args.input
+            this.roman = this.processRoman = args.input
             break
         }
       },

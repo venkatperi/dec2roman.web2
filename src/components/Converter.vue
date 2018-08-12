@@ -10,9 +10,11 @@
     </div>
     <div class="row">
       <div class="col">
-    <textarea v-model="entry"
-              :class="['form-control','input', error? 'error-border':'']">
-    </textarea>
+        <transform-text-area
+          v-model="entry"
+          :transform="preprocessor"
+          :class="['form-control','input', error? 'error-border':'']">
+        </transform-text-area>
       </div>
     </div>
     <div class="row">
@@ -24,23 +26,31 @@
 </template>
 
 <script>
+  import TransformTextArea from './TransformTextArea'
 
   // noinspection JSUnusedGlobalSymbols
   export default {
     name: 'converter',
-
+    components: { TransformTextArea },
     props: {
       value: [Number, String],
+
+      process: [Number, String],
+
       hint: String,
+
       options: Object,
+
       caption: {
         type: String,
         required: true,
       },
+
       converter: {
         type: Function,
         default: x => x,
       },
+
       preprocessor: {
         type: Function,
         default: x => x,
@@ -56,36 +66,39 @@
     },
 
     watch: {
-      value() {
-        this.entry = this.value
+      value( x ) {
+        this.entry = x
+      },
+
+      process( x ) {
+        this.entry = x
       },
 
       error() {
-        console.log( this.error )
+        this.error && console.log( this.error )
       },
 
       options: {
         handler() {
-          this.update( this.entry )
+          this.updateResult()
         },
         deep: true,
-      },
-
-      entry( input ) {
-        this.update( input )
       },
 
       result( r ) {
         this.$emit( 'result', r );
       },
 
+      entry( ) {
+        this.error = undefined
+        this.updateResult()
+      },
+
     },
 
     methods: {
-      update( input ) {
-        this.error = undefined
+      updateResult( ) {
         try {
-          this.entry = this.preprocessor( input )
           this.result = this.converter( this.entry, this.options )
         } catch ( e ) {
           this.error = e
@@ -152,7 +165,4 @@
     background: rgba(200, 100, 100, 0.25) !important;
   }
 
-  .converter {
-    /*margin-bottom: 20px;*/
-  }
 </style>
