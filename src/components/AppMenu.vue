@@ -1,37 +1,48 @@
 <template>
   <div class="container-fluid menu p-0 mt-2 mb-4">
     <div class="row">
-      <div class="col-auto float-left">
-        <h3 class="brand">Romanus Numerum</h3>
+      <div class="title col-auto float-left align-middle">
+        <Title width="245" height="20"/>
       </div>
+
       <div class="col float-right text-right">
-        <a href="https://github.com/venkatperi/dec2roman" target="_blank">
-          <GithubLogo/>
+        <a class="icon" href="https://en.wikipedia.org/wiki/Roman_numerals" target="_blank">
+          <font-awesome-icon :icon="['fab', 'wikipedia-w']" size="sm"/>
+        </a>
+        <a class="icon" href="https://github.com/venkatperi/dec2roman" target="_blank">
+          <font-awesome-icon :icon="['fab', 'github']" size="sm"/>
         </a>
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
   import GithubLogo from 'images/github.svg';
+  import Title from 'images/title.svg';
 
   export default {
     name: 'app-menu',
     components: {
       GithubLogo,
+      Title,
     },
   }
 
 </script>
 
 
-<style lang="scss">
-  /*@import '../styles/main';*/
-</style>
-
-
 <style lang="scss" scoped>
+
+  .icon {
+    vertical-align: middle;
+    color: #333;
+  }
+
+  div.title {
+    padding-top: 4px !important;
+  }
 
   .brand {
     margin-bottom: 0;

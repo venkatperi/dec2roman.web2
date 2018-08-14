@@ -1,25 +1,34 @@
 <template>
   <div class="container-fluid converter form-group p-0">
     <div class="row">
-      <div class="col-auto pr-0">
-        <label>{{caption}}</label>
-      </div>
-      <div class="col-auto float-right p-0">
+      <div class="col" style="min-height:27px;">
         <span class="message" v-html="errorMessage"></span>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <transform-text-area
-          v-model="entry"
-          :transform="preprocessor"
-          :class="['form-control','input', error? 'error-border':'']">
-        </transform-text-area>
+      <div class="col-1 float-right ">
+        <slot name="top-right" :text="entry"></slot>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <span class="hint">{{ hint }}</span>
+        <div class="input-outer">
+          <transform-text-area
+            v-model="entry"
+            rows="1"
+            :title="caption"
+            :placeholder="caption"
+            :transform="preprocessor"
+            :class="['form-control','input', error? 'error-border':'']"
+            @input="updateResult" />
+          <div
+            v-if="!empty"
+            class="counter"
+            v-html="counter"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span class="hint" v-html="hint"></span>
       </div>
     </div>
   </div>
@@ -72,6 +81,7 @@
 
       process( x ) {
         this.entry = x
+        this.updateResult()
       },
 
       error() {
@@ -89,15 +99,11 @@
         this.$emit( 'result', r );
       },
 
-      entry( ) {
-        this.error = undefined
-        this.updateResult()
-      },
-
     },
 
     methods: {
-      updateResult( ) {
+      updateResult() {
+        this.error = undefined
         try {
           this.result = this.converter( this.entry, this.options )
         } catch ( e ) {
@@ -107,8 +113,16 @@
     },
 
     computed: {
+      counter() {
+        return (this.entry || '').toString().length
+      },
+
       errorMessage() {
         return this.error ? this.error.message : '&nbsp;'
+      },
+
+      empty() {
+        return this.counter === 0
       },
     },
   }
@@ -133,15 +147,28 @@
   }
 
   .message {
-    margin-left: 10px;
     color: red;
   }
 
+  .input-outer {
+    position: relative;
+  }
+
+  .counter {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+  }
+
   textarea.input {
-    height: 1.5em;
-    color: #555;
+    resize: none;
+
+    color: rgba(0, 0, 0, 0.7);
     width: 100%;
     padding: 0 20px;
+    min-height: 80px;
     max-height: 300px;
 
     font-family: 'News Cycle', sans-serif;
@@ -150,15 +177,20 @@
     overflow-wrap: break-word;
     position: relative;
     text-align: left;
-    background-color: #eee;
+    border-radius: 0;
+    background: rgba(125, 140, 115, 0.5);
+    text-shadow: 0 0 7px rgba(255, 255, 255, 0.25);
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25);
+    &::placeholder {
+      text-align: center;
+      vertical-align: middle;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.25em;
+    }
   }
 
   .decimal textarea {
     font-family: 'Share Tech Mono', monospace;
-    color: #333;
-    &::placeholder {
-      color: #808080;
-    }
   }
 
   .error-border {
