@@ -15,7 +15,7 @@
     "bootstrap": "^4.1.3",
     "clipboard": "^2.0.1",
     "cssnano": "^4.0.5",
-    "dec2roman": "^1.1.6",
+    "dec2roman": "^1.2.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.10",
     "node-sass": "^4.9.2",

@@ -153,7 +153,7 @@
       romanPreprocessor: function ( x ) {
         return !x || x.length === 0 ? '' :
           x.toUpperCase()
-            .replace( /['\-_]/, '̅' )
+            .replace( /['_]/, '̅' )
       },
 
       convertRoman: function ( x, opts ) {
