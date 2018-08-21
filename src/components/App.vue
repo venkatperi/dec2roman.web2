@@ -14,7 +14,7 @@
             v-if="entry.text.length>0"
             slot="top-right"
             slot-scope="entry"
-            :href="'/roman/#/d2r/'+entry.text"
+            :href="'/#/d2r/'+entry.text"
             title="Right click to copy link">
             <font-awesome-icon
               :icon="['fa', 'link']"
@@ -38,7 +38,7 @@
             v-if="entry.text.length>0"
             slot="top-right"
             slot-scope="entry"
-            :href="'/roman/#/d2r/'+entry.text"
+            :href="'/#/d2r/'+entry.text"
             title="Right click to copy link">
             <font-awesome-icon :icon="['fa', 'link']" size="xs" />
           </a>
