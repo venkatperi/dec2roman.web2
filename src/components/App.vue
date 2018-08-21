@@ -14,7 +14,7 @@
             v-if="entry.text.length>0"
             slot="top-right"
             slot-scope="entry"
-            :href="'/#/d2r/'+entry.text"
+            :href="'/#/r2d/'+entry.text"
             title="Right click to copy link">
             <font-awesome-icon
               :icon="['fa', 'link']"
